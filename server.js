@@ -18,9 +18,8 @@ app.use(express.static('public'));
 app.use(helmet());
 app.use(morgan("common"))
 
-app.get("/",(req,res)=>){
-  res.send("welcome!!!")
-}
+
+
 
 app.use(require('./routes'));
 
