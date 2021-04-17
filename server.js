@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/MY-SOCIAL-API',
 
 
 
-// Use this to log mongo queries//
+// Use this to log mongo//
 mongoose.set('debug', true);
 
 
