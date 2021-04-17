@@ -18,6 +18,19 @@ app.use(express.static('public'));
 app.use(helmet());
 app.use(morgan("common"))
 
+mongoose.set('useCreateIndex', true);
+mongoose.set('debug', true);
+
+app.post('/submit', ({ body }, res) => {
+  User.create(body)
+    .then(dbUser => {
+      res.json(dbUser);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 
 
 
