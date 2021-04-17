@@ -7,14 +7,20 @@ const app = express();
 const PORT= process.env.port|| 3001;
 
 const dotenv = require("dotenv");
+const morgan = require("morgan");
 
 
 dotenv.config()
-
+ //// MIDDLEWARE////////////
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(helmet());
+app.use(morgan("common"))
 
+app.get("/",(req,res)=>){
+  res.send("welcome!!!")
+}
 
 app.use(require('./routes'));
 
