@@ -36,7 +36,7 @@ app.post('/submit', ({ body }, res) => {
 
 app.use(require('./routes'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/MY-SOCIAL-API', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost3001/MY-SOCIAL-API', {
   useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true
