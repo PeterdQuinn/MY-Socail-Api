@@ -86,4 +86,77 @@ deleteUser({params}, res) {
 };
 
 
+
+////// adds friend //////////
+
+
+
+addFriend({params}, res) {
+    // console.log(params);
+    User.updateMany(
+        { _id: mongoose.Types.ObjectId(params.id)}, 
+        { $push: {friends: mongoose.Types.ObjectId(params.friendId)}},
+        { new: true, runValidators: true}
+    )
+        .populate({
+            path: 'friends',
+            select: '_id'
+        })
+        .select('-__v')
+        .then(dbUserData => {
+            
+         console.log(dbUserData);
+            if(!dbUserData) {
+                res.status(404).json({ message: 'Not with that id!'})
+                return;
+            }
+    
+            User.findOne({ _id: params.id })
+                .then(user => {
+                    res.json(user);
+                })
+
+
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+};
+
+    ///// removes a friend ////////
+
+
+
+        
+    removeFriend({params}, res) {
+        console.log(params);
+        User.findByIdAndUpdate(
+            { _id: params.id}, 
+            { $pull: {friends: params.friendId}},
+            { new: true, runValidators: true}
+        )
+            .populate({
+                path: 'friends',
+                select: '_id'
+            })
+            .select('-__v')
+            .then(dbUserData => {
+                if(!dbUserData) {
+                    res.status(404).json({ message: 'Not with that id!'})
+                    return;
+                }
+                res.json(dbUserData)
+            })
+            .catch(err => {
+                res.status(400).json(err)
+            })
+    }
+
+
+
+                 module.exports = userController;
+
+
+
+
     
