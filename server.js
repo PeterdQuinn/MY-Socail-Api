@@ -15,7 +15,7 @@ dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(helmet());
+
 app.use(morgan("common"))
 
 mongoose.set('useCreateIndex', true);
