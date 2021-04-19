@@ -1,8 +1,10 @@
 const {user} = require('./models');
 const mongoose = require('mongoose');
-
 const userController = {
- // gets all users//
+ 
+
+ 
+    // gets all users//
  getAllUsers(req,res) {
     User.find({})
         .populate({
@@ -18,3 +20,29 @@ const userController = {
         })
 },
 }
+
+// gets one user by id// 
+
+getUserById({ params }, res) {
+    User.findOne({ _id: params.id })
+        .populate({
+            path: 'thoughts', 
+            select: '-__v'
+        })
+        .select('-__v')
+        .then(dbUserData => {
+        // send 404 in err////
+        if (!dbUserData) {
+            res.status(404).json({ message: 'Not by that user id' });
+            return;
+        }
+        res.json(dbUserData)
+        })
+        .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+        });
+    };
+
+    
+    
